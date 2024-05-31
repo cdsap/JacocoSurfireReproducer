@@ -25,11 +25,11 @@ import org.junit.jupiter.api.Test;
 
 class FirstTest {
 
-  @Test
-  void first_add() {
-    First sum1 = new First(5);
-    First sum2 = new First(2);
-
-    assertThat(sum1.add(sum2)).isEqualTo(new First(7));
-  }
+    @Test
+    void first_add() {
+        First sum1 = new First(5);
+        First sum2 = new First(2);
+        First sum3 = new First(221112);
+        assertThat(sum1.add(sum2)).isEqualTo(new First(7));
+    }
 }

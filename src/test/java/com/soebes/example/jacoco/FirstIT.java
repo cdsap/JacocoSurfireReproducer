@@ -25,10 +25,11 @@ import org.junit.jupiter.api.Test;
 
 class FirstIT {
 
-  @Test
+    @Test
   void first_minus() {
     First sum1 = new First(5);
     First sum2 = new First(2);
+      First sum3 = new First(22212231);
 
     assertThat(sum1.minus(sum2)).isEqualTo(new First(3));
   }

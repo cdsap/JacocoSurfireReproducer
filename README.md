@@ -1,54 +1,12 @@
-<!---
- Licensed to the Apache Software Foundation (ASF) under one or more
- contributor license agreements.  See the NOTICE file distributed with
- this work for additional information regarding copyright ownership.
- The ASF licenses this file to You under the Apache License, Version 2.0
- (the "License"); you may not use this file except in compliance with
- the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
--->
-# JaCoCo Example
-
-This example project is related to a [blog article](https://blog.soebes.io/posts/2023/10/2023-10-26-maven-jacoco-configuration/)
-which describes the configuration to use JaCoCo in your [Apache Maven project][apache-maven].
-
-Also you can find the article on https://khmarbaise.medium.com/apache-maven-jacoco-configuration-ea3cb592159f
-
-## Requirements
-
-* JDK21+
-* Apache Maven 3.8+ (also Maven 4.0.0-alpha-12+ supported).
-
-The given code example can easily being changed to work with JDK version less than 17,
-because you can simply replace the given `record` in the example with a usual 
-final class implemented in the classical way. 
-
-## JaCoCo Report
-
-To create a full JaCoCo coverage report you could start via:
-
-```bash
-mvn clean verify
+# Goal marked as not cacheable reproducer
+In this project there are different test goals. The second goal is marked as not cacheable:
 ```
-
-Creating a report which covers only the unit tests can be achieved by:
-
-```bash
-mvn clean verify -DskipITs
+Goal execution marked as not cacheable: Build caching was not enabled for this goal execution because pre-existing files were modified.
+Cacheable goals may only create new files.
 ```
-
-If you like to have the integration test reports only:
-
-```bash
-mvn clean verify -DskipUTs
+Checking the logs:
 ```
+[DEBUG] The following output files existed before execution of this goal and were also modified during the execution of the goal:
+- /example-jacoco/target/jacoco.exec
 
-
-[apache-maven]: https://maven.apache.org
+```
