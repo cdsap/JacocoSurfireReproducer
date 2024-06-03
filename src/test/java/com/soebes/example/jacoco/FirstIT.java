@@ -19,18 +19,18 @@ package com.soebes.example.jacoco;
  * under the License.
  */
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
 
-class FirstIT {
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class FirstIT {
 
     @Test
-  void first_minus() {
-    First sum1 = new First(5);
-    First sum2 = new First(2);
-      First sum3 = new First(22212231);
+    public void first_minus() {
+        First sum1 = new First(5);
+        First sum2 = new First(2);
+        First sum3 = new First(22212231);
 
-    assertThat(sum1.minus(sum2)).isEqualTo(new First(3));
-  }
+        assertThat(sum1.minus(sum2)).isEqualTo(new First(3));
+    }
 }

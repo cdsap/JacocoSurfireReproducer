@@ -19,14 +19,14 @@ package com.soebes.example.jacoco;
  * under the License.
  */
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
 
-class FirstTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class FirstTest {
 
     @Test
-    void first_add() {
+    public void first_add() {
         First sum1 = new First(5);
         First sum2 = new First(2);
         First sum3 = new First(221112);
