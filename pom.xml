@@ -140,9 +140,25 @@
                         </goals>
                         <phase>initialize</phase>
                         <configuration>
-                            <propertyName>jacoco-agent.unit-test</propertyName>
-                            <destFile>${project.build.directory}/jacoco-unit-test.exec</destFile>
+                            <propertyName>jacoco-agent.unit-tests</propertyName>
+                            <destFile>${project.build.directory}/jacoco-unit-tests.exec</destFile>
                         </configuration>
+                    </execution>
+                    <!-- generate coverage report for unit-tests -->
+                    <execution>
+                        <id>generate-unit-tests-coverage</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/jacoco-unit-tests.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <!-- disable JaCoCo report for surefire:test@default-test -->
+                    <execution>
+                        <id>jacoco-report</id>
+                        <phase>none</phase>
                     </execution>
                     <!-- prepare JaCoCo agent for surefire:test@integration-test -->
                     <execution>
@@ -152,8 +168,19 @@
                         </goals>
                         <phase>pre-integration-test</phase>
                         <configuration>
-                            <propertyName>jacoco-agent.integration-test</propertyName>
-                            <destFile>${project.build.directory}/jacoco-integration-test.exec</destFile>
+                            <propertyName>jacoco-agent.integration-tests</propertyName>
+                            <destFile>${project.build.directory}/jacoco-integration-tests.exec</destFile>
+                        </configuration>
+                    </execution>
+                    <!-- generate coverage report for integration-tests -->
+                    <execution>
+                        <id>generate-integration-tests-coverage</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/jacoco-integration-tests.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -176,7 +203,7 @@
                                 <exclude>**/*IT.java</exclude>
                             </excludes>
                             <!-- use JaCoCo agent configuration specific to unit tests -->
-                            <argLine>${jacoco-agent.unit-test}</argLine>
+                            <argLine>${jacoco-agent.unit-tests}</argLine>
                         </configuration>
                         <goals>
                             <goal>test</goal>
@@ -190,7 +217,7 @@
                                 <include>**/*IT.java</include>
                             </includes>
                             <!-- use JaCoCo agent configuration specific to integration tests -->
-                            <argLine>${jacoco-agent.integration-test}</argLine>
+                            <argLine>${jacoco-agent.integration-tests}</argLine>
                         </configuration>
                         <goals>
                             <goal>test</goal>
