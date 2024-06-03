@@ -132,30 +132,29 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <executions>
+                    <!-- prepare JaCoCo agent for surefire:test@unit-test -->
                     <execution>
-                        <id>default-prepare-agent</id>
+                        <id>unit-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-<!--                        <configuration>-->
-<!--                            <destFile>${project.build.directory}/jacoco-default.exec</destFile>-->
-<!--                        </configuration>-->
+                        <phase>initialize</phase>
+                        <configuration>
+                            <propertyName>jacoco-agent.unit-test</propertyName>
+                            <destFile>${project.build.directory}/jacoco-unit-test.exec</destFile>
+                        </configuration>
                     </execution>
+                    <!-- prepare JaCoCo agent for surefire:test@integration-test -->
                     <execution>
                         <id>integration-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                         <phase>pre-integration-test</phase>
-<!--                        <configuration>-->
-<!--                            <destFile>${project.build.directory}/jacoco-integration.exec</destFile>-->
-<!--                        </configuration>-->
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
+                        <configuration>
+                            <propertyName>jacoco-agent.integration-test</propertyName>
+                            <destFile>${project.build.directory}/jacoco-integration-test.exec</destFile>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -165,13 +164,19 @@
                 <version>2.22.2</version>
                 <executions>
                     <execution>
+                        <id>default-test</id>
+                        <!-- this executes the same tests as unit-tests -->
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
                         <id>unit-tests</id>
                         <phase>test</phase>
                         <configuration>
-
                             <excludes>
                                 <exclude>**/*IT.java</exclude>
                             </excludes>
+                            <!-- use JaCoCo agent configuration specific to unit tests -->
+                            <argLine>${jacoco-agent.unit-test}</argLine>
                         </configuration>
                         <goals>
                             <goal>test</goal>
@@ -181,10 +186,11 @@
                         <id>integration-tests</id>
                         <phase>integration-test</phase>
                         <configuration>
-
                             <includes>
                                 <include>**/*IT.java</include>
                             </includes>
+                            <!-- use JaCoCo agent configuration specific to integration tests -->
+                            <argLine>${jacoco-agent.integration-test}</argLine>
                         </configuration>
                         <goals>
                             <goal>test</goal>
